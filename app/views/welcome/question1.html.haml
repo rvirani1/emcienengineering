@@ -1,0 +1,23 @@
+%h1 Question 1
+
+%code
+  %p class Country < ActiveRecord::Base
+  %p &nbsp has_many :cities
+  %p end
+  %p class City < ActiveRecord::Base
+  %p &nbsp belongs_to :country
+  %p &nbsp has_many :bars
+  %p end
+
+  %p class Bar < ActiveRecord::Base
+  %p &nbsp belongs_to :city
+  %p end
+%p (Please feel free to use any documentation you can find)
+%hr
+
+%h4 How would you (in a controller method) assign to @country the Country named ‘France’?
+%h4 How would you assign to @cities an Array of all the cities in France?
+%h4 How would you assign to @bars an Array of all the bars in France?
+%h4 How would you assign to @directory an Array of the names of all the bars in France, sorted?
+%h4 Do any of the above answer change if there are 400 cities?
+%h4 How about if there are 20,000 bars?
