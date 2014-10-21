@@ -4,6 +4,9 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
+  get 'question1', to: 'welcome#question1'
+  get 'question2', to: 'welcome#question2'
+  get 'question3', to: 'welcome#question3'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
