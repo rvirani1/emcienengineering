@@ -16,8 +16,16 @@
 %hr
 
 %h4 How would you (in a controller method) assign to @country the Country named ‘France’?
+%p Assuming that this is a traditional resource.
+%p @country = Country.find_by_name "France"
 %h4 How would you assign to @cities an Array of all the cities in France?
+%p @country.cities
 %h4 How would you assign to @bars an Array of all the bars in France?
+%p I would probably add a has many through association on the Country model, so that it had many bars through cities. However, we can also write that without using an association.
+%p @bars = Bar.joins(:city).where(cities: {country_id: @country.id}).to_a
 %h4 How would you assign to @directory an Array of the names of all the bars in France, sorted?
+%p @directory = Bar.joins(:city).where(cities: {country_id: @country.id}).order(:name).pluck(:name)
 %h4 Do any of the above answer change if there are 400 cities?
+%p 400 results isn't a huge number to get back from the database. So it may make sense to include cities when retrieving the country ( Country.find_by_name("France").include(:cities) ). That way it's in memory and our future queries for cities will cache.
 %h4 How about if there are 20,000 bars?
+%p Yeah, let's not invoke 20,000 ActiveRecord objects or wait for that query to return. If we use find_in_batches for the last one, we can probably take that array, pluck the titles, and store them in an array that's then sorted. Sorting plain old strings is a lot easier. We can probably do calculations on strings without slowing down the server too much.
